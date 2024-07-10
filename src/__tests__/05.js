@@ -1,11 +1,11 @@
 import * as React from 'react'
-import {render} from '@testing-library/react'
+import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from '../final/05'
 // import App from '../exercise/05'
 
 test('adds and removes children from the log', async () => {
-  const {getByText, getByRole} = render(<App />)
+  const { getByText, getByRole } = render(<App />)
   const log = getByRole('log')
   const chatCount = log.children.length
   const add = getByText(/add/i)
@@ -17,7 +17,7 @@ test('adds and removes children from the log', async () => {
 })
 
 test('scroll to top scrolls to the top', async () => {
-  const {getByText, getByRole} = render(<App />)
+  const { getByText, getByRole } = render(<App />)
   const log = getByRole('log')
   const scrollToTop = getByText(/scroll to top/i)
   const scrollToBottom = getByText(/scroll to bottom/i)

@@ -5,7 +5,7 @@
 import * as React from 'react'
 
 function countReducer(state, action) {
-  const {type, step} = action
+  const { type, step } = action
   switch (type) {
     case 'increment': {
       return {
@@ -19,12 +19,12 @@ function countReducer(state, action) {
   }
 }
 
-function Counter({initialCount = 0, step = 1}) {
+function Counter({ initialCount = 0, step = 1 }) {
   const [state, dispatch] = React.useReducer(countReducer, {
     count: initialCount,
   })
-  const {count} = state
-  const increment = () => dispatch({type: 'increment', step})
+  const { count } = state
+  const increment = () => dispatch({ type: 'increment', step })
   return <button onClick={increment}>{count}</button>
 }
 

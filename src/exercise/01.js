@@ -1,12 +1,12 @@
 // useReducer: simple Counter
 // http://localhost:3000/isolated/exercise/01.js
 
-import * as React from 'react'
+import { useState } from 'react'
 
-function Counter({initialCount = 0, step = 1}) {
+function Counter({ initialCount = 0, step = 1 }) {
   // 🐨 replace React.useState with React.useReducer.
   // 💰 React.useReducer(countReducer, initialCount)
-  const [count, setCount] = React.useState(initialCount)
+  const [count, setCount] = useState(initialCount)
 
   // 💰 you can write the countReducer function so you don't have to make any
   // changes to the next two lines of code! Remember:

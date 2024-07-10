@@ -6,7 +6,7 @@
 // this in the regular exercise file.
 
 import * as React from 'react'
-import {useAsync} from '../utils'
+import { useAsync } from '../utils'
 import {
   fetchPokemon,
   PokemonForm,
@@ -20,7 +20,7 @@ const PokemonCacheContext = React.createContext()
 function pokemonCacheReducer(state, action) {
   switch (action.type) {
     case 'ADD_POKEMON': {
-      return {...state, [action.pokemonName]: action.pokemonData}
+      return { ...state, [action.pokemonName]: action.pokemonData }
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -43,14 +43,20 @@ function usePokemonCache() {
   return context
 }
 
-function PokemonInfo({pokemonName: externalPokemonName}) {
+function PokemonInfo({ pokemonName: externalPokemonName }) {
   const [cache, dispatch] = usePokemonCache()
-  
+
   const pokemonName = externalPokemonName?.toLowerCase()
-  const {data: pokemon, status, error, run, setData} = useAsync({
+  const {
+    data: pokemon,
+    status,
+    error,
+    run,
+    setData,
+  } = useAsync({
     status: pokemonName ? 'pending' : 'idle',
   })
-  
+
   React.useEffect(() => {
     if (!pokemonName) {
       return
@@ -59,7 +65,7 @@ function PokemonInfo({pokemonName: externalPokemonName}) {
     } else {
       run(
         fetchPokemon(pokemonName).then(pokemonData => {
-          dispatch({type: 'ADD_POKEMON', pokemonName, pokemonData})
+          dispatch({ type: 'ADD_POKEMON', pokemonName, pokemonData })
           return pokemonData
         }),
       )
@@ -79,16 +85,16 @@ function PokemonInfo({pokemonName: externalPokemonName}) {
   throw new Error('This should be impossible')
 }
 
-function PreviousPokemon({onSelect}) {
+function PreviousPokemon({ onSelect }) {
   const [cache] = usePokemonCache()
   return (
     <div>
       Previous Pokemon
-      <ul style={{listStyle: 'none', paddingLeft: 0}}>
+      <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
         {Object.keys(cache).map(pokemonName => (
-          <li key={pokemonName} style={{margin: '4px auto'}}>
+          <li key={pokemonName} style={{ margin: '4px auto' }}>
             <button
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
               onClick={() => onSelect(pokemonName)}
             >
               {pokemonName}
@@ -100,10 +106,10 @@ function PreviousPokemon({onSelect}) {
   )
 }
 
-function PokemonSection({onSelect, pokemonName}) {
+function PokemonSection({ onSelect, pokemonName }) {
   return (
     <PokemonCacheProvider>
-      <div style={{display: 'flex'}}>
+      <div style={{ display: 'flex' }}>
         <PreviousPokemon onSelect={onSelect} />
         <div className="pokemon-info">
           <PokemonErrorBoundary

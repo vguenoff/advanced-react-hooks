@@ -14,13 +14,13 @@ import {
 function asyncReducer(state, action) {
   switch (action.type) {
     case 'pending': {
-      return {status: 'pending', data: null, error: null}
+      return { status: 'pending', data: null, error: null }
     }
     case 'resolved': {
-      return {status: 'resolved', data: action.data, error: null}
+      return { status: 'resolved', data: action.data, error: null }
     }
     case 'rejected': {
-      return {status: 'rejected', data: null, error: action.error}
+      return { status: 'rejected', data: null, error: action.error }
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -40,20 +40,20 @@ function useAsync(asyncCallback, initialState) {
     if (!promise) {
       return
     }
-    dispatch({type: 'pending'})
+    dispatch({ type: 'pending' })
     promise.then(
       data => {
-        dispatch({type: 'resolved', data})
+        dispatch({ type: 'resolved', data })
       },
       error => {
-        dispatch({type: 'rejected', error})
+        dispatch({ type: 'rejected', error })
       },
     )
   }, [asyncCallback])
   return state
 }
 
-function PokemonInfo({pokemonName}) {
+function PokemonInfo({ pokemonName }) {
   const asyncCallback = React.useCallback(() => {
     if (!pokemonName) {
       return
@@ -64,7 +64,7 @@ function PokemonInfo({pokemonName}) {
   const state = useAsync(asyncCallback, {
     status: pokemonName ? 'pending' : 'idle',
   })
-  const {data: pokemon, status, error} = state
+  const { data: pokemon, status, error } = state
 
   switch (status) {
     case 'idle':

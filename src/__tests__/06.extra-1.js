@@ -1,6 +1,6 @@
 import matchMediaPolyfill from 'mq-polyfill'
 import * as React from 'react'
-import {render, act} from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 import App from '../final/06.extra-1'
 // import App from '../exercise/06'
 
@@ -20,7 +20,7 @@ beforeAll(() => {
 // so this test just ensures you don't break anything 😅
 
 test('works', async () => {
-  const {container} = render(<App />)
+  const { container } = render(<App />)
 
   const box = container.querySelector('[style]')
 

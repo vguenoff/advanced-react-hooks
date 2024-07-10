@@ -13,13 +13,13 @@ import {
 function asyncReducer(state, action) {
   switch (action.type) {
     case 'pending': {
-      return {status: 'pending', data: null, error: null}
+      return { status: 'pending', data: null, error: null }
     }
     case 'resolved': {
-      return {status: 'resolved', data: action.data, error: null}
+      return { status: 'resolved', data: action.data, error: null }
     }
     case 'rejected': {
-      return {status: 'rejected', data: null, error: action.error}
+      return { status: 'rejected', data: null, error: action.error }
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -40,13 +40,13 @@ function useAsync(asyncCallback, initialState, dependencies) {
     if (!promise) {
       return
     }
-    dispatch({type: 'pending'})
+    dispatch({ type: 'pending' })
     promise.then(
       data => {
-        dispatch({type: 'resolved', data})
+        dispatch({ type: 'resolved', data })
       },
       error => {
-        dispatch({type: 'rejected', error})
+        dispatch({ type: 'rejected', error })
       },
     )
     // too bad the eslint plugin can't statically analyze this :-(
@@ -56,7 +56,7 @@ function useAsync(asyncCallback, initialState, dependencies) {
   return state
 }
 
-function PokemonInfo({pokemonName}) {
+function PokemonInfo({ pokemonName }) {
   const state = useAsync(
     () => {
       if (!pokemonName) {
@@ -64,11 +64,11 @@ function PokemonInfo({pokemonName}) {
       }
       return fetchPokemon(pokemonName)
     },
-    {status: pokemonName ? 'pending' : 'idle'},
+    { status: pokemonName ? 'pending' : 'idle' },
     [pokemonName],
   )
 
-  const {data: pokemon, status, error} = state
+  const { data: pokemon, status, error } = state
 
   switch (status) {
     case 'idle':
